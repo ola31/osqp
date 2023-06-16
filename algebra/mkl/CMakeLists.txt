@@ -12,6 +12,10 @@ if(${MKL_LINK} STREQUAL "sdl")
   target_compile_definitions(OSQPLIB PUBLIC MKL_LINK_SDL=1)
 endif()
 
+# MKL's setup wrapper script doesn't properly add the MKL CMake files to the path
+# so do that here instead.
+list( PREPEND CMAKE_PREFIX_PATH $ENV{MKLROOT} )
+
 find_package(MKL CONFIG REQUIRED)
 
 target_sources(
